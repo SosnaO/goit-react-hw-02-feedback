@@ -9,9 +9,13 @@ class Feedback extends Component {
     neutral: 0,
     bad: 0
   };
+//   countTotalFeedback()={`(${this.state.good}+${this.state.neutral}+${this.state.bad})`};
+
+
   goodIncrement=()=>{
       this.setState(prevState=>({
         good:prevState.good+1,
+
      }))
   };
   neutralIncrement=()=>{
@@ -25,18 +29,20 @@ badIncrement=()=>{
    }))
 };
 
-countTotalFeedback=()=>{
-    this.setState(prevState=>({
+// countTotalFeedback=()={`(${this.state.good}+${this.state.neutral}+${this.state.bad})`};
+// console.log(countTotalFeedback())
+// countTotalFeedback=()=>{
+//     this.setState(prevState=>({
        
-    total:this.good+5,
-  }))
+//     total:prevState.bad+15,
+//   }))
     // this.setState(prevState=>{
     //       return{  
     //   total:prevState.good+prevState.neutral+prevState.bad,
     // }
 // })
 
-};
+// };
 
 
 
@@ -54,8 +60,8 @@ return(
     <span>Good:{this.state.good} </span>
     <span>Neutral:{this.state.neutral} </span>
     <span>Bad:{this.state.bad} </span>
-    <span>Total:{this.state.total} </span>
-    <span>Positive feedback:{this.state.positiveFeedback} %</span>
+    <span>Total:{this.state.good+this.state.neutral+this.state.bad} </span>
+    <span>Positive feedback:{(this.state.good*100)/(this.state.good+this.state.neutral+this.state.bad)} %</span>
 
     </div>
    
