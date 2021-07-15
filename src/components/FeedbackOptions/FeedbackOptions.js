@@ -1,5 +1,5 @@
 import React from 'react';
-// import PropTypes from 'prop-types';
+import PropTypes from 'prop-types';
 // import styles from '../Feedback/Feedback.css';
 
 
@@ -9,7 +9,10 @@ const FeedbackOptions = ({ options, onLeaveFeedback})=>{
         <>
             {options.map(button =>{
         return (
-            <button type="button" onClick={onLeaveFeedback}>{button}</button>
+            <div key={button}>
+                  <button type="button" onClick={onLeaveFeedback}>{button}</button>
+            </div>
+          
         );
         }
     )
@@ -27,4 +30,8 @@ const FeedbackOptions = ({ options, onLeaveFeedback})=>{
 </>
 );
 };
+
+FeedbackOptions.propTypes = {
+    options: PropTypes.arrayOf(PropTypes.string).isRequired,
+  };
 export default FeedbackOptions;

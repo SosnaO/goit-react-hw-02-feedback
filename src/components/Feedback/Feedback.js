@@ -5,6 +5,7 @@ import styles from './Feedback.css';
 //import { render } from '@testing-library/react';
 import Statistics from '../Statistics/Statistics';
 import FeedbackOptions from '../FeedbackOptions/FeedbackOptions';
+import Section from '../Section/Section';
 class Feedback extends Component {
     state = {
     good: 0,
@@ -22,6 +23,21 @@ class Feedback extends Component {
         if (value === 'bad') return { bad: prevState[value] + 1 };
       });
     };
+
+
+    // onLeaveFeedback=()=>{
+
+    //     this.setState(prevState => ({
+    //         good:prevState.good+1,
+    //         neutral:prevState.neutral+1,
+    //         bad:prevState.bad+1,
+
+    //        }));
+                 
+
+    // };
+   
+
 
 //   goodIncrement=()=>{
 //       this.setState(prevState=>({
@@ -68,17 +84,19 @@ render(){
     const positiveFeedback=this.countPositiveFeedbackPercentage(total)
 return(
 <div className={styles.feedback}>
-    <p className={styles.heading}>Please leave feedback</p>
+
+    <Section title={'Plese leave feedback'}>
+    {/* <p className={styles.heading}>Please leave feedback</p> */}
     {/* <div>
         <button type="button" onClick={this.goodIncrement}>Good</button>
         <button type="button" onClick={this.neutralIncrement}>Neutral</button>
         <button type="button" onClick={this.badIncrement}>Bad</button>
     </div> */}
     <FeedbackOptions options={['Good', 'Neutral', 'Bad']} onLeaveFeedback={this.onLeaveFeedback} />
-
+    </Section>
+    <Section title={'Statistics'}>
     <Statistics good={this.state.good} neutral={this.state.neutral} bad={this.state.bad} total={total} positivePercentage={positiveFeedback}/>
-    {/* <p className={styles.heading}>Statistics</p>
-    <div  className={styles.counter}>
+    {/*     <div  className={styles.counter}>
     <span>Good:{this.state.good} </span>
     <span>Neutral:{this.state.neutral} </span>
     <span>Bad:{this.state.bad} </span>
@@ -89,7 +107,7 @@ return(
     */}
 
     {/* <Statistics good={} neutral={} bad={} total={} positivePercentage={}> */}
-
+    </Section>
 </div>
 );
 }

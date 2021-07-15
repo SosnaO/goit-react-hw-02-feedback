@@ -5,7 +5,7 @@ import PropTypes from 'prop-types';
 const Statistics = ({ good, neutral, bad, total, positivePercentage}) => {
     return(
         <>
-    <p className="heading">Statistics</p>
+    {/* <p className="heading">Statistics</p> */}
         <div  className="counter">
         <span>Good:{good} </span>
         <span>Neutral:{neutral} </span>
