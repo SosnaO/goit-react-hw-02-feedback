@@ -3,7 +3,8 @@ import React, { Component } from 'react';
 //import PropTypes from 'prop-types';
 import styles from './Feedback.css';
 //import { render } from '@testing-library/react';
-import Statistics from '../Statistics/Statistics'
+import Statistics from '../Statistics/Statistics';
+import FeedbackOptions from '../FeedbackOptions/FeedbackOptions';
 class Feedback extends Component {
     state = {
     good: 0,
@@ -12,23 +13,32 @@ class Feedback extends Component {
   };
 //   countTotalFeedback()={`(${this.state.good}+${this.state.neutral}+${this.state.bad})`};
 
+    onLeaveFeedback = event => {
+    const value = event.target.textContent.toLowerCase();
 
-  goodIncrement=()=>{
-      this.setState(prevState=>({
-        good:prevState.good+1,
+    this.setState(prevState => {
+        if (value === 'good') return { good: prevState[value] + 1 };
+        if (value === 'neutral') return { neutral: prevState[value] + 1 };
+        if (value === 'bad') return { bad: prevState[value] + 1 };
+      });
+    };
 
-     }))
-  };
-  neutralIncrement=()=>{
-    this.setState(prevState=>({
-      neutral:prevState.neutral+1,
-   }))
-};
-badIncrement=()=>{
-    this.setState(prevState=>({
-      bad:prevState.bad+1,
-   }))
-};
+//   goodIncrement=()=>{
+//       this.setState(prevState=>({
+//         good:prevState.good+1,
+
+//      }))
+//   };
+//   neutralIncrement=()=>{
+//     this.setState(prevState=>({
+//       neutral:prevState.neutral+1,
+//    }))
+// };
+// badIncrement=()=>{
+//     this.setState(prevState=>({
+//       bad:prevState.bad+1,
+//    }))
+// };
 
 countTotalFeedback = () => {
     return Object.values(this.state).reduce((acc, value) => acc + value);
@@ -59,12 +69,13 @@ render(){
 return(
 <div className={styles.feedback}>
     <p className={styles.heading}>Please leave feedback</p>
-    <div>
+    {/* <div>
         <button type="button" onClick={this.goodIncrement}>Good</button>
         <button type="button" onClick={this.neutralIncrement}>Neutral</button>
         <button type="button" onClick={this.badIncrement}>Bad</button>
-    </div>
-    {/* <Statistics /> */}
+    </div> */}
+    <FeedbackOptions options={['Good', 'Neutral', 'Bad']} onLeaveFeedback={this.onLeaveFeedback} />
+
     <Statistics good={this.state.good} neutral={this.state.neutral} bad={this.state.bad} total={total} positivePercentage={positiveFeedback}/>
     {/* <p className={styles.heading}>Statistics</p>
     <div  className={styles.counter}>
