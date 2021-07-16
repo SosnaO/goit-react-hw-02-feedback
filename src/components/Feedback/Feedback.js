@@ -1,122 +1,63 @@
-//import { element } from 'prop-types';
 import React, { Component } from 'react';
-//import PropTypes from 'prop-types';
-import styles from './Feedback.css';
-//import { render } from '@testing-library/react';
+import styles from './Feedback.module.css';
 import Statistics from '../Statistics/Statistics';
 import FeedbackOptions from '../FeedbackOptions/FeedbackOptions';
 import Section from '../Section/Section';
+import Notification from '../Notitfication/Notification'
 class Feedback extends Component {
     state = {
     good: 0,
     neutral: 0,
-    bad: 0
+    bad: 0,
   };
-//   countTotalFeedback()={`(${this.state.good}+${this.state.neutral}+${this.state.bad})`};
+    
+  show = isShowing => {
+    return isShowing;
+  };
 
     onLeaveFeedback = event => {
     const value = event.target.textContent.toLowerCase();
-
     this.setState(prevState => {
         if (value === 'good') return { good: prevState[value] + 1 };
         if (value === 'neutral') return { neutral: prevState[value] + 1 };
         if (value === 'bad') return { bad: prevState[value] + 1 };
       });
     };
-
-
-    // onLeaveFeedback=()=>{
-
-    //     this.setState(prevState => ({
-    //         good:prevState.good+1,
-    //         neutral:prevState.neutral+1,
-    //         bad:prevState.bad+1,
-
-    //        }));
-                 
-
-    // };
-   
-
-
-//   goodIncrement=()=>{
-//       this.setState(prevState=>({
-//         good:prevState.good+1,
-
-//      }))
-//   };
-//   neutralIncrement=()=>{
-//     this.setState(prevState=>({
-//       neutral:prevState.neutral+1,
-//    }))
-// };
-// badIncrement=()=>{
-//     this.setState(prevState=>({
-//       bad:prevState.bad+1,
-//    }))
-// };
-
-countTotalFeedback = () => {
-    return Object.values(this.state).reduce((acc, value) => acc + value);
     
-  };
-  countPositiveFeedbackPercentage=(total)=>{
-    return Math.round((this.state.good/total)*100);
-  }
+    countTotalFeedback = () => {
+        return Object.values(this.state).reduce((acc, value) => acc + value);
+    };
+    
+   countPositiveFeedbackPercentage=(total)=>{
+        return Math.round((this.state.good/total)*100);
+    };
 
-// {`(${this.state.good}+${this.state.neutral}+${this.state.bad})`};
-// console.log(countTotalFeedback())
-// countTotalFeedback=()=>{
-//     this.setState(prevState=>({
-       
-//     total:prevState.bad+15,
-//   }))
-    // this.setState(prevState=>{
-    //       return{  
-    //   total:prevState.good+prevState.neutral+prevState.bad,
-    // }
-// })
-
-// };
-
-render(){
+    render(){
     const total = this.countTotalFeedback();
-    const positiveFeedback=this.countPositiveFeedbackPercentage(total)
-return(
-<div className={styles.feedback}>
+    const positiveFeedback=this.countPositiveFeedbackPercentage(total);
+    const show = this.show(total);
+        return(
+        <div className={styles.feedback}>
 
     <Section title={'Plese leave feedback'}>
-    {/* <p className={styles.heading}>Please leave feedback</p> */}
-    {/* <div>
-        <button type="button" onClick={this.goodIncrement}>Good</button>
-        <button type="button" onClick={this.neutralIncrement}>Neutral</button>
-        <button type="button" onClick={this.badIncrement}>Bad</button>
-    </div> */}
-    <FeedbackOptions options={['Good', 'Neutral', 'Bad']} onLeaveFeedback={this.onLeaveFeedback} />
+        <FeedbackOptions 
+            options={['Good', 'Neutral', 'Bad']}
+            onLeaveFeedback={this.onLeaveFeedback} />
     </Section>
+
     <Section title={'Statistics'}>
-    <Statistics good={this.state.good} neutral={this.state.neutral} bad={this.state.bad} total={total} positivePercentage={positiveFeedback}/>
-    {/*     <div  className={styles.counter}>
-    <span>Good:{this.state.good} </span>
-    <span>Neutral:{this.state.neutral} </span>
-    <span>Bad:{this.state.bad} </span>
-    <span>Total:{total} </span>
-    <span>Positive feedback:{positiveFeedback} %</span>
-
-    </div>
-    */}
-
-    {/* <Statistics good={} neutral={} bad={} total={} positivePercentage={}> */}
+        <Notification message="No feedback given" show={show}>
+            <Statistics
+             good={this.state.good} 
+             neutral={this.state.neutral}
+             bad={this.state.bad} 
+             total={total} 
+             positivePercentage={positiveFeedback}/>
+         </Notification>
     </Section>
 </div>
-);
+)
 }
-
 }
-
-
-
-
-
 
 export default Feedback;

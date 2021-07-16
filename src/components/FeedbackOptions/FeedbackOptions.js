@@ -1,33 +1,20 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-// import styles from '../Feedback/Feedback.css';
-
+import styles from '../Feedback/Feedback.module.css';
 
 const FeedbackOptions = ({ options, onLeaveFeedback})=>{
-
     return(
         <>
             {options.map(button =>{
         return (
-            <div key={button}>
-                  <button type="button" onClick={onLeaveFeedback}>{button}</button>
-            </div>
-          
-        );
+            <div className={styles.all_button} key={button}>
+                  <button className={styles.button} type="button" onClick={onLeaveFeedback}>{button}</button>
+            </div>          
+        )
         }
     )
-
-};
-
-
-{/* <div>
-<button type="button" onClick={goodIncrement}>Good</button>
-<button type="button" onClick={neutralIncrement}>Neutral</button>
-<button type="button" onClick={badIncrement}>Bad</button>
-</div> */}
-
-
-</>
+}
+        </>
 );
 };
 
